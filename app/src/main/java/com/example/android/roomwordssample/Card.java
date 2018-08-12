@@ -1,8 +1,14 @@
 package com.example.android.roomwordssample;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
+@Entity(tableName = "card_table")
 public class Card {
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "cardName")
     private String cardName;
     @ColumnInfo(name = "strength")
@@ -27,8 +33,6 @@ public class Card {
     private Integer rank;
     @ColumnInfo(name = "level")
     private Integer level;
-    @ColumnInfo(name = "owned")
-    private Boolean owned;
     @ColumnInfo(name = "desc")
     private String desc;
     @ColumnInfo(name = "exp")
@@ -77,11 +81,11 @@ public class Card {
         this.combat = combat;
     }
 
-    public Integer getintelligence() {
+    public Integer getIntelligence() {
         return intelligence;
     }
 
-    public void setintelligence(Integer intelligence) {
+    public void setIntelligence(Integer intelligence) {
         this.intelligence = intelligence;
     }
 
@@ -149,14 +153,6 @@ public class Card {
         this.level = level;
     }
 
-    public void obtainCard(){
-        this.owned = true;
-    }
-    
-    public void removeCard(){
-        this.owned = false;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -172,4 +168,5 @@ public class Card {
     public void rankUp(){
         this.rank = this.rank + 1;
     }
+
 }

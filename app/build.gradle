@@ -4,6 +4,11 @@ android {
     compileSdkVersion 26
     //buildToolsVersion '26.0.2'
     defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
         applicationId "com.example.android.roomwordssample"
         minSdkVersion 20
         targetSdkVersion 26

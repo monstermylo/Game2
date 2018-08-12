@@ -31,6 +31,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.android.roomwordssample.Card;
+import com.example.android.roomwordssample.CardListAdapter;
+import com.example.android.roomwordssample.CardViewModel;
+import com.example.android.roomwordssample.R;
+
 import java.util.List;
 
 
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
-    private WordViewModel mWordViewModel;
+    private CardViewModel mCardViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +54,21 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final WordListAdapter adapter = new WordListAdapter(this);
+        final CardListAdapter adapter = new CardListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Get a new or existing ViewModel from the ViewModelProvider.
-        mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
+        mCardViewModel = ViewModelProviders.of(this).get(CardViewModel.class);
 
-        // Add an observer on the LiveData returned by getAlphabetizedWords.
+        // Add an observer on the LiveData returned by getAlphabetizedCards.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
+        mCardViewModel.getAllCards().observe(this, new Observer<List<Card>>() {
             @Override
-            public void onChanged(@Nullable final List<Word> words) {
-                // Update the cached copy of the words in the adapter.
-                adapter.setWords(words);
+            public void onChanged(@Nullable final List<Card> cards) {
+                // Update the cached copy of the cards in the adapter.
+                adapter.setCards(cards);
             }
         });
 
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
+                Intent intent = new Intent(MainActivity.this, NewCardActivity.class);
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -96,8 +101,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Word word = new Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY));
-            mWordViewModel.insert(word);
+            Card card = new Card();
+            card.setCardName(data.getStringExtra(NewCardActivity.EXTRA_REPLY));
+            mCardViewModel.insert(card);
         } else {
             Toast.makeText(
                     getApplicationContext(),

@@ -13,9 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. -->
 
 <resources>
-    <string name="app_name">RoomWordsSample</string>
+    <string name="app_name">Marvel TT</string>
     <string name="action_settings">Settings</string>
     <string name="hint_word">Word…</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="hint_card">Card</string>
+    <string name="hint_str">Strength</string>
+    <string name="hint_cmbt">Combat</string>
+    <string name="hint_int">Intelligence</string>
+    <string name="hint_res">Resillience</string>
+    <string name="hint_pwr">Power</string>
+    <string name="hint_mgc">Magic</string>
 </resources>
