@@ -41,11 +41,10 @@ public abstract class CardRoomDatabase extends RoomDatabase {
             synchronized (CardRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            CardRoomDatabase.class, "card_database")
-                            // Wipes and rebuilds instead of migrating if no Migration object.
-                            // Migration is not part of this codelab.
-                            .fallbackToDestructiveMigration()
-                            .addCallback(sRoomDatabaseCallback)
+                            CardRoomDatabase.class,
+                            "cards.db")
+                            .openHelperFactory(new com.jaus.albertogiunta.justintrain_oraritreni.db.sqliteAsset.AssetSQLiteOpenHelperFactory())
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
